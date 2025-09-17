@@ -13,6 +13,7 @@ app.use("*", async (c, next) => {
     const start = Date.now();
     await next();
     const ms = Date.now() - start;
+
     // Add a response header so we can see timings in curl or other clients
     c.header("X-Response-Time", `${ms}ms`);
 });
