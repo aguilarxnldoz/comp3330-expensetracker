@@ -10,4 +10,14 @@ export default defineConfig({
             "@": path.resolve(__dirname, "./src"),
         },
     },
+
+    // https://vite.dev/config/server-options
+    server: {
+        proxy: {
+            "/api": {
+                target: "http://localhost:3000",
+                changeOrigin: true,
+            },
+        },
+    },
 });
