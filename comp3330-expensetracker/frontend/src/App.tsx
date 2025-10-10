@@ -1,5 +1,6 @@
 import {Link, Outlet} from "@tanstack/react-router";
 import ThemeToggle from "./components/theme-toggle";
+import {AuthBar} from "./components/AuthBar";
 
 export default function App() {
     return (
@@ -12,6 +13,7 @@ export default function App() {
                         <Link to="/">Home</Link>
                         <Link to="/expenses">Expenses</Link>
                         <Link to="/expenses/new">New</Link>
+                        <AuthBar />
                     </nav>
                 </header>
                 <div className="mt-6">
