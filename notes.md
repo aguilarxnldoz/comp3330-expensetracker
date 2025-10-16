@@ -1,5 +1,5 @@
-# Things I learned from lab10
+# Lab summary
 
--   Chaining rest apis in tanstack query to save an object in aws s3
--   Figuring out how to structure the payload when using mutation
--   getSignedUrl() should always take the s3client, specified command and an expiry date
+-   Having a more dynamic state management for queries make the application more interactive with the user
+-   CRUD operations are much more fluent and pop up a lot faster
+-   using the previous query in place of a failed query is a better option

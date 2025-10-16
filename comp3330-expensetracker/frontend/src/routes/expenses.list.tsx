@@ -1,6 +1,7 @@
 // /frontend/src/routes/expenses.list.tsx
 import {useQuery} from "@tanstack/react-query";
 import {Link} from "@tanstack/react-router";
+import ExpensesList from "@/components/ExpenseList";
 
 export type Expense = {id: number; title: string; amount: number; fileUrl: string | null};
 
@@ -9,7 +10,7 @@ export type Expense = {id: number; title: string; amount: number; fileUrl: strin
 const API = "/api";
 
 export default function ExpensesListPage() {
-    const {data, isLoading, isError, error, refetch, isFetching} = useQuery({
+    const {isLoading, isError, error, refetch, isFetching} = useQuery({
         queryKey: ["expenses"],
         queryFn: async () => {
             const res = await fetch(`${API}/expenses`, {
@@ -27,7 +28,31 @@ export default function ExpensesListPage() {
         retry: 1,
     });
 
-    if (isLoading) return <p className="p-6 text-sm text-muted-foreground">Loading…</p>;
+    if (isLoading)
+        return (
+            <div className="flex items-center gap-2 p-6 text-sm text-muted-foreground">
+                <svg
+                    className="h-4 w-4 animate-spin"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                    />
+                    <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                </svg>
+                Loading expenses…
+            </div>
+        );
     if (isError)
         return (
             <div className="p-6">
@@ -42,8 +67,6 @@ export default function ExpensesListPage() {
             </div>
         );
 
-    const items = data?.expenses ?? [];
-
     return (
         <section className="mx-auto max-w-3xl p-6">
             <header className="mb-4 flex items-center justify-between">
@@ -57,43 +80,7 @@ export default function ExpensesListPage() {
                 </button>
             </header>
 
-            {items.length === 0 ? (
-                <div className="rounded border bg-background p-6">
-                    <p className="text-sm text-muted-foreground">No expenses yet.</p>
-                </div>
-            ) : (
-                <ul className="space-y-2">
-                    {items.map((e) => (
-                        <li
-                            key={e.id}
-                            className="flex items-center justify-between rounded border bg-background text-foreground p-3 shadow-sm"
-                        >
-                            <div className="flex items-center gap-3">
-                                <Link
-                                    to="/expenses/$id"
-                                    params={{id: String(e.id)}}
-                                    className="font-medium underline hover:text-primary"
-                                >
-                                    {e.title}
-                                </Link>
-                                {e.fileUrl ? (
-                                    <a
-                                        href={e.fileUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-xs underline text-primary hover:opacity-90"
-                                    >
-                                        Download
-                                    </a>
-                                ) : (
-                                    <span className="text-xs text-muted-foreground">Receipt not uploaded</span>
-                                )}
-                            </div>
-                            <span className="tabular-nums">${e.amount}</span>
-                        </li>
-                    ))}
-                </ul>
-            )}
+            <ExpensesList />
         </section>
     );
 }
