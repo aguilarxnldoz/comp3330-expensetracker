@@ -52,5 +52,6 @@ app.get("*", async (c, next) => {
     const url = new URL(c.req.url);
     if (url.pathname.startsWith("/api")) return next();
     // serve index.html
-    return (c.env as any)?.ASSETS ? await (c.env as any).ASSETS.fetch(new Request("index.html")) : c.html(await Bun.file("./server/public/index.html").text());
+    const indexFile = Bun.file(new URL("./public/index.html", import.meta.url));
+    return c.html(await indexFile.text());
 });
