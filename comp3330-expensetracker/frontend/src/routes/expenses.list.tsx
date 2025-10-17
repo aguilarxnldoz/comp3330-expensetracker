@@ -1,6 +1,5 @@
 // /frontend/src/routes/expenses.list.tsx
 import {useQuery} from "@tanstack/react-query";
-import {Link} from "@tanstack/react-router";
 import ExpensesList from "@/components/ExpenseList";
 
 export type Expense = {id: number; title: string; amount: number; fileUrl: string | null};

@@ -7,7 +7,7 @@ const API = "/api"; // if you’re using Vite proxy; otherwise "http://localhost
 
 export default function ExpenseDetailPage({id}: {id: number}) {
     // useQuery caches by key ['expenses', id]
-    const {data, isLoading, isError, error, refetch} = useQuery({
+    const {data, isLoading, isError, refetch} = useQuery({
         queryKey: ["expenses", id],
         queryFn: async () => {
             const res = await fetch(`${API}/expenses/${id}`, {

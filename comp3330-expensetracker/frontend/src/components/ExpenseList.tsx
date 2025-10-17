@@ -6,7 +6,7 @@ const API = "/api";
 export default function ExpensesList() {
     const tanstackQuery = useQueryClient();
 
-    const {data, isLoading, isError, error, refetch} = useQuery({
+    const {data, isLoading, isError, refetch} = useQuery({
         queryKey: ["expenses"],
         queryFn: async () => {
             const res = await fetch("/api/expenses", {credentials: "include"});
