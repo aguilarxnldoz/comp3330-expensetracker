@@ -15,14 +15,14 @@ app.use("/*", serveStatic({root: "./server/public"}));
 
 // -------------------
 
-app.use(
-    "/api/*",
-    cors({
-        origin: "http://localhost:5173",
-        allowMethods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-        allowHeaders: ["Content-Type", "Authorization"],
-    })
-);
+// app.use(
+//     "/api/*",
+//     cors({
+//         origin: "http://localhost:5173",
+//         allowMethods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+//         allowHeaders: ["Content-Type", "Authorization"],
+//     })
+// );
 
 // Global logger (from Lab 1)
 app.use("*", logger());

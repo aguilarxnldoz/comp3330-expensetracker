@@ -3,16 +3,13 @@ FROM oven/bun:1 as base
 WORKDIR /app
 
 # Install deps
-COPY package.json bun.lockb ./
+COPY package.json ./
 RUN bun install --frozen-lockfile
 
-# Build frontend
-COPY frontend ./frontend
-RUN cd frontend && bun run build
+
 
 # Copy server and compiled frontend to ./server/public
 COPY server ./server
-RUN mkdir -p server/public && cp -r frontend/dist/* server/public/
 
 # Start runtime image
 FROM oven/bun:1 as runtime
